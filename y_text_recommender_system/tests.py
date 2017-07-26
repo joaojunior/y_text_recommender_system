@@ -16,7 +16,7 @@ class TestRecommender(unittest.TestCase):
         actual = _extract_only_docs_from_result(actual)
         self.assertEqual(expected, actual)
 
-    def test_verify_recommender_docs_one_word(self):
+    def test_verify_recommender_docs_one_word_in_common(self):
         doc = {'doc1': 'one'}
         docs = [{'doc3': 'one two three'},
                 {'doc2': 'one two'}]
