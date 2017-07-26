@@ -26,8 +26,17 @@ class TestRecommender(unittest.TestCase):
         actual = _extract_only_docs_from_result(actual)
         self.assertEqual(expected, actual)
 
+    def test_recommender_doc_not_in_docs(self):
+        doc = {'doc1': 'zero'}
+        docs = [{'doc3': 'one two three'},
+                {'doc2': 'one two'}]
+        expected = [(0.0, {'doc3': 'one two three'}),
+                    (0.0, {'doc2': 'one two'})]
+        actual = recommend(doc, docs)
+        self.assertEqual(expected, actual)
 
-class TestRecommenderSystemStopWords(unittest.TestCase):
+
+class TestRecommenderSystemWithStopWords(unittest.TestCase):
     def setUp(self):
         self.doc = {'doc1': 'one two two three'}
         self.docs = [{'doc2': 'one two two'},
