@@ -1,5 +1,5 @@
-import numpy as np
 from sklearn.feature_extraction.text import TfidfVectorizer
+import numpy as np
 
 
 def recommend(doc, docs):
@@ -24,7 +24,7 @@ def create_corpus_from_dict(docs):
 def calculate_similarity(model_dense):
     similarity = []
     tfidf_main_doc = model_dense[0, :]
-    for tfidf_doc in model_dense[1, :]:
+    for tfidf_doc in model_dense[1:, :]:
         similarity.append(cosine_sim(tfidf_main_doc, tfidf_doc.T))
     return similarity
 
