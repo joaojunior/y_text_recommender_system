@@ -8,7 +8,7 @@ def _extract_only_docs_from_result(result):
 
 
 class TestRecommender(unittest.TestCase):
-    def test_verify_recomender_same_doc(self):
+    def test_recommender_same_doc(self):
         doc = {'doc': 'simple doc'}
         docs = [doc]
         expected = [doc]
@@ -16,7 +16,7 @@ class TestRecommender(unittest.TestCase):
         actual = _extract_only_docs_from_result(actual)
         self.assertEqual(expected, actual)
 
-    def test_verify_recommender_docs_one_word_in_common(self):
+    def test_recommender_docs_one_word_in_common(self):
         doc = {'doc1': 'one'}
         docs = [{'doc3': 'one two three'},
                 {'doc2': 'one two'}]
@@ -26,7 +26,7 @@ class TestRecommender(unittest.TestCase):
         actual = _extract_only_docs_from_result(actual)
         self.assertEqual(expected, actual)
 
-    def test_recommender_doc_not_in_docs(self):
+    def test_recommender_none_word_in_common(self):
         doc = {'doc1': 'zero'}
         docs = [{'doc3': 'one two three'},
                 {'doc2': 'one two'}]
