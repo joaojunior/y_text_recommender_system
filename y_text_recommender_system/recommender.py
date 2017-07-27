@@ -16,8 +16,7 @@ def recommend(doc, docs, stop_words=None):
 def create_corpus_from_dict(docs):
     corpus = []
     for doc in docs:
-        for key, value in doc.items():
-            corpus.append(value)
+        corpus.append(' '.join(doc.values()))
     return corpus
 
 

@@ -57,5 +57,19 @@ class TestRecommenderSystemWithStopWords(unittest.TestCase):
         self.assertEqual(expected, actual)
 
 
+class TestRecommenderDictMultipleKeys(unittest.TestCase):
+    def test_recommender_dict_with_two_keys(self):
+        docs = [{'key1': 'not', 'key2': 'equal'},
+                {'key1': 'word1', 'key2': 'word2'}]
+        doc = {'key': 'word2', 'key3': 'word3'}
+        expected = [{'key1': 'word1', 'key2': 'word2'},
+                    {'key1': 'not', 'key2': 'equal'}]
+        actual = recommend(doc, docs)
+        self.assertNotEqual(0, actual[0][0])
+        self.assertEqual(0, actual[1][0])
+        actual = _extract_only_docs_from_result(actual)
+        self.assertEqual(expected, actual)
+
+
 if __name__ == '__main__':
     unittest.main()
