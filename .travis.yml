@@ -1,0 +1,22 @@
+language: python
+
+cache:
+    - ccache
+    - pip
+
+sudo: enabled
+
+env:
+    TOX_ENV=py34,py35,py36
+
+install:
+    - pip install -r requirements.txt
+
+script:
+    - isort -c
+    - flake8
+    - tox -e $TOX_ENV
+
+notifications:
+      email:
+          - travis@joaojunior.org
