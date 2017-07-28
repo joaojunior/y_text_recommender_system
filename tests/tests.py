@@ -1,6 +1,6 @@
 import unittest
 
-from recommender import recommend
+from y_text_recommender_system.recommender import recommend
 
 
 def _extract_only_docs_from_result(result):
