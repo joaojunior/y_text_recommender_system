@@ -1,0 +1,8 @@
+-r requirements.txt
+
+# Libraries to run tests and get feedback about the code
+nose
+coverage
+radon
+isort
+flake8
