@@ -6,4 +6,3 @@ coverage
 radon
 isort
 flake8
-python-tox

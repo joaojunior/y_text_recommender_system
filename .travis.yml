@@ -12,6 +12,10 @@ env:
 install:
     - pip install -r requirements-development.txt
 
+before_install:
+    - sudo apt-get -qq update
+    - sudo apt-get install -y python-tox
+
 script:
     - isort -c
     - flake8
