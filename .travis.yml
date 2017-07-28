@@ -6,11 +6,14 @@ cache:
 
 sudo: enabled
 
-env:
-    TOX_ENV=py34,py35,py36
+python:
+    - "3.4"
+    - "3.5"
+    - "3.6"
 
 install:
     - pip install -r requirements-development.txt
+    - pip install tox-travis
 
 before_install:
     - sudo apt-get -qq update
@@ -19,7 +22,7 @@ before_install:
 script:
     - isort -c
     - flake8
-    - tox -e $TOX_ENV
+    - tox
 
 notifications:
       email:
