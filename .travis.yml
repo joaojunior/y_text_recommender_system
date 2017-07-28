@@ -1,0 +1,31 @@
+language: python
+
+cache:
+    - ccache
+    - pip
+
+sudo: enabled
+
+python:
+    - "3.4"
+    - "3.5"
+    - "3.6"
+
+install:
+    - pip install -r requirements-development.txt
+    - pip install tox-travis codecov
+
+after_success: codecov
+
+before_install:
+    - sudo apt-get -qq update
+    - sudo apt-get install -y python-tox
+
+script:
+    - isort -c
+    - flake8
+    - tox
+
+notifications:
+      email:
+          - travis@joaojunior.org
