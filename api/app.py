@@ -33,7 +33,7 @@ def hello_world():
     return 'Hello, World!'
 
 
-@app.route('/recommender/', methods=['GET', 'POST'])
+@app.route('/recommender/', methods=['POST'])
 def recommender():
     content = request.get_json()
     if content is not None:
