@@ -28,11 +28,6 @@ def handle_invalid_usage(error):
     return response
 
 
-@app.route('/')
-def hello_world():
-    return 'Hello, World!'
-
-
 @app.route('/recommender/', methods=['POST'])
 def recommender():
     content = request.get_json()
