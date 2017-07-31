@@ -40,17 +40,17 @@ def recommender():
 
 
 def _verify_parameters(doc, docs):
-    if bool(doc) is False:
-        msg = 'The parameter `doc` is missing or empty'
-        raise InvalidUsage(msg)
     if not isinstance(doc, dict):
         msg = 'The parameter `doc` should be a dict'
         raise InvalidUsage(msg)
-    if len(docs) == 0:
-        msg = 'The parameter `docs` is missing or empty'
+    if bool(doc) is False:
+        msg = 'The parameter `doc` is missing or empty'
         raise InvalidUsage(msg)
     if not isinstance(docs, list):
         msg = 'The parameter `docs` should be a list of dict'
+        raise InvalidUsage(msg)
+    if len(docs) == 0:
+        msg = 'The parameter `docs` is missing or empty'
         raise InvalidUsage(msg)
     for _doc in docs:
         msg = 'The parameter `docs` should be a list of dict'
