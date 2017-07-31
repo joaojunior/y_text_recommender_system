@@ -1,8 +1,8 @@
--r requirements.txt
+-r requirements-api.txt
 
 # Libraries to run tests and get feedback about the code
 nose
 coverage
 radon
-isort
+isort==4.2.5
 flake8

@@ -1,0 +1,58 @@
+from flask import Flask, jsonify, request
+from y_text_recommender_system.recommender import recommend
+
+app = Flask(__name__)
+
+
+class InvalidUsage(Exception):
+    status_code = 400
+
+    def __init__(self, message, payload=None):
+        Exception.__init__(self)
+        self.message = message
+        self.payload = payload
+
+    def to_dict(self):
+        rv = dict(self.payload or ())
+        rv['message'] = self.message
+        return rv
+
+
+@app.errorhandler(InvalidUsage)
+def handle_invalid_usage(error):
+    response = jsonify(error.to_dict())
+    response.status_code = error.status_code
+    return response
+
+
+@app.route('/recommender/', methods=['POST'])
+def recommender():
+    content = request.get_json()
+    if content is not None:
+        doc = content.get('doc', {})
+        docs = content.get('docs', [])
+        _verify_parameters(doc, docs)
+        result = recommend(doc, docs)
+        return jsonify(result)
+    else:
+        msg = 'You need to send the parameters: doc and docs'
+        raise InvalidUsage(msg)
+
+
+def _verify_parameters(doc, docs):
+    if not isinstance(doc, dict):
+        msg = 'The parameter `doc` should be a dict'
+        raise InvalidUsage(msg)
+    if bool(doc) is False:
+        msg = 'The parameter `doc` is missing or empty'
+        raise InvalidUsage(msg)
+    if not isinstance(docs, list):
+        msg = 'The parameter `docs` should be a list of dict'
+        raise InvalidUsage(msg)
+    if len(docs) == 0:
+        msg = 'The parameter `docs` is missing or empty'
+        raise InvalidUsage(msg)
+    for _doc in docs:
+        msg = 'The parameter `docs` should be a list of dict'
+        if not isinstance(_doc, dict):
+            raise InvalidUsage(msg)
