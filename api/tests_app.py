@@ -82,6 +82,25 @@ class TestApp(unittest.TestCase):
         self.assertEqual(400, rv.status_code)
         self.assertEqual(expected, json.loads(rv.data.decode('utf-8')))
 
+    def test_post_with_docs_is_not_list(self):
+        data = {'doc': {'key1': 'value1'},
+                'docs': {'doc1': 'value1'}}
+        data = json.dumps(data)
+        rv = self.app.post(self.url,
+                           data=data, content_type='application/json')
+        expected = {'message': 'The parameter `docs` should be a list of dict'}
+        self.assertEqual(400, rv.status_code)
+        self.assertEqual(expected, json.loads(rv.data.decode('utf-8')))
+
+    def test_post_with_docs_is_not_list_of_dict(self):
+        data = {'doc': {'key1': 'value1'},
+                'docs': [{'a': 'b'}, 'a']}
+        data = json.dumps(data)
+        rv = self.app.post(self.url,
+                           data=data, content_type='application/json')
+        expected = {'message': 'The parameter `docs` should be a list of dict'}
+        self.assertEqual(400, rv.status_code)
+        self.assertEqual(expected, json.loads(rv.data.decode('utf-8')))
 
 if __name__ == '__main__':
     unittest.main()

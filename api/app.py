@@ -52,3 +52,10 @@ def _verify_parameters(doc, docs):
     if len(docs) == 0:
         msg = 'The parameter `docs` is missing or empty'
         raise InvalidUsage(msg)
+    if not isinstance(docs, list):
+        msg = 'The parameter `docs` should be a list of dict'
+        raise InvalidUsage(msg)
+    for _doc in docs:
+        msg = 'The parameter `docs` should be a list of dict'
+        if not isinstance(_doc, dict):
+            raise InvalidUsage(msg)
