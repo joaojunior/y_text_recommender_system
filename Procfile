@@ -1,2 +1,1 @@
-web: cd api/ && gunicorn --log-file - app:app
-install: pip install gunicorn
+web: pip install gunicorn && cd api/ && gunicorn --log-file - app:app
