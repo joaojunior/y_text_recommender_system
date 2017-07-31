@@ -59,5 +59,18 @@ class TestApp(unittest.TestCase):
         self.assertEqual(expected,
                          json.loads(rv.data.decode('utf-8')))
 
+    def test_post_with_parameters_are_correct(self):
+        data = {'doc': {'key1': 'value1'},
+                'docs': [{'doc1': 'value1'},
+                         {'doc2': 'value1'}]}
+        data = json.dumps(data)
+        rv = self.app.post(self.url,
+                           data=data, content_type='application/json')
+        expected = [[1.0, {'doc1': 'value1'}], [1.0, {'doc2': 'value1'}]]
+        actual = json.loads(rv.data.decode('utf-8'))
+        self.assertEqual(200, rv.status_code)
+        self.assertEqual(expected, actual)
+
+
 if __name__ == '__main__':
     unittest.main()

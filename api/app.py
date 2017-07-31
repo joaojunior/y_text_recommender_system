@@ -2,6 +2,7 @@ from flask import Flask
 from flask import request
 from flask import jsonify
 
+from y_text_recommender_system.recommender import recommend
 
 app = Flask(__name__)
 
@@ -33,7 +34,7 @@ def hello_world():
 
 
 @app.route('/recommender/', methods=['GET', 'POST'])
-def add_message():
+def recommender():
     content = request.get_json()
     if content is not None:
         doc = content.get('doc', {})
@@ -44,8 +45,8 @@ def add_message():
         if len(docs) == 0:
             msg = 'The parameter `docs` is missing or empty'
             raise InvalidUsage(msg)
-        print(content, type(content), doc, docs, type(doc), type(docs))
+        result = recommend(doc, docs)
+        return jsonify(result)
     else:
         msg = 'You need to send the parameters: doc and docs'
         raise InvalidUsage(msg)
-    return 'uuid'
