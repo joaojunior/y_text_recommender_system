@@ -46,6 +46,9 @@ def _verify_parameters(doc, docs):
     if doc == {}:
         msg = 'The parameter `doc` is missing or empty'
         raise InvalidUsage(msg)
+    if not isinstance(doc, dict):
+        msg = 'The parameter `doc` should be a dict'
+        raise InvalidUsage(msg)
     if len(docs) == 0:
         msg = 'The parameter `docs` is missing or empty'
         raise InvalidUsage(msg)

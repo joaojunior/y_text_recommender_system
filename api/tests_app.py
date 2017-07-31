@@ -71,6 +71,17 @@ class TestApp(unittest.TestCase):
         self.assertEqual(200, rv.status_code)
         self.assertEqual(expected, actual)
 
+    def test_post_with_doc_is_not_dict(self):
+        data = {'doc': 'a',
+                'docs': [{'doc1': 'value1'},
+                         {'doc2': 'value1'}]}
+        data = json.dumps(data)
+        rv = self.app.post(self.url,
+                           data=data, content_type='application/json')
+        expected = {'message': 'The parameter `doc` should be a dict'}
+        self.assertEqual(400, rv.status_code)
+        self.assertEqual(expected, json.loads(rv.data.decode('utf-8')))
+
 
 if __name__ == '__main__':
     unittest.main()
