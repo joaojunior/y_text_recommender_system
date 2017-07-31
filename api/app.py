@@ -43,7 +43,7 @@ def recommender():
 
 
 def _verify_parameters(doc, docs):
-    if doc == {}:
+    if bool(doc) is False:
         msg = 'The parameter `doc` is missing or empty'
         raise InvalidUsage(msg)
     if not isinstance(doc, dict):
