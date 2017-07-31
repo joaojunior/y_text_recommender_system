@@ -1,7 +1,7 @@
-import unittest
 import json
+import unittest
 
-from app import app
+from api.app import app
 
 
 class TestApp(unittest.TestCase):
@@ -101,6 +101,3 @@ class TestApp(unittest.TestCase):
         expected = {'message': 'The parameter `docs` should be a list of dict'}
         self.assertEqual(400, rv.status_code)
         self.assertEqual(expected, json.loads(rv.data.decode('utf-8')))
-
-if __name__ == '__main__':
-    unittest.main()

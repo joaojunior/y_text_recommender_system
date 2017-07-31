@@ -1,7 +1,4 @@
-from flask import Flask
-from flask import request
-from flask import jsonify
-
+from flask import Flask, jsonify, request
 from y_text_recommender_system.recommender import recommend
 
 app = Flask(__name__)
