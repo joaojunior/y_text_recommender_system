@@ -34,14 +34,18 @@ def recommender():
     if content is not None:
         doc = content.get('doc', {})
         docs = content.get('docs', [])
-        if doc == {}:
-            msg = 'The parameter `doc` is missing or empty'
-            raise InvalidUsage(msg)
-        if len(docs) == 0:
-            msg = 'The parameter `docs` is missing or empty'
-            raise InvalidUsage(msg)
+        _verify_parameters(doc, docs)
         result = recommend(doc, docs)
         return jsonify(result)
     else:
         msg = 'You need to send the parameters: doc and docs'
+        raise InvalidUsage(msg)
+
+
+def _verify_parameters(doc, docs):
+    if doc == {}:
+        msg = 'The parameter `doc` is missing or empty'
+        raise InvalidUsage(msg)
+    if len(docs) == 0:
+        msg = 'The parameter `docs` is missing or empty'
         raise InvalidUsage(msg)
