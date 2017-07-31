@@ -32,14 +32,17 @@ def hello_world():
     return 'Hello, World!'
 
 
-@app.route('/api/', methods=['GET', 'POST'])
+@app.route('/recommender/', methods=['GET', 'POST'])
 def add_message():
     content = request.get_json()
     if content is not None:
         doc = content.get('doc', {})
-        docs = content.get('docs', {})
+        docs = content.get('docs', [])
         if doc == {}:
-            msg = 'The parameter `doc` is missing'
+            msg = 'The parameter `doc` is missing or empty'
+            raise InvalidUsage(msg)
+        if len(docs) == 0:
+            msg = 'The parameter `docs` is missing or empty'
             raise InvalidUsage(msg)
         print(content, type(content), doc, docs, type(doc), type(docs))
     else:
