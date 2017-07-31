@@ -36,5 +36,16 @@ class TestApp(unittest.TestCase):
         expected = {'message': 'The parameter `docs` is missing or empty'}
         self.assertEqual(expected,
                          json.loads(rv.data.decode('utf-8')))
+
+    def test_post_with_doc_empty(self):
+        data = {'doc': {},
+                'docs': [{'key1': 'value1'}]}
+        data = json.dumps(data)
+        rv = self.app.post(self.url,
+                           data=data, content_type='application/json')
+        self.assertEqual(400, rv.status_code)
+        expected = {'message': 'The parameter `doc` is missing or empty'}
+        self.assertEqual(expected,
+                         json.loads(rv.data.decode('utf-8')))
 if __name__ == '__main__':
     unittest.main()
